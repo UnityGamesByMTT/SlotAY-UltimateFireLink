@@ -72,9 +72,7 @@ public class BonusController : MonoBehaviour
             
         }
 
-        //StartCoroutine(TestStart());
-       
-        //    StartCoroutine(testStop());
+        
     }
 
     internal IEnumerator BonusStartupPage(int spinCount)
@@ -124,7 +122,7 @@ public class BonusController : MonoBehaviour
         StartCoroutine(uiManager.SlideChangeAnimation(()=>changeSlide(true)));
         SetinitialReel();
         StartCoroutine(PlaySlideChangeTransitionAnimation(spinCount));
-       // StartCoroutine(BonusTweenRoutine(spinCount));
+      
         yield return null;
     }
 
@@ -132,25 +130,25 @@ public class BonusController : MonoBehaviour
     {
         int rowOpen = CheckNoOfRow();
         int index = 0;
-        for (int i = 0; i < socketManager.initialData.bonusTrigger.Count; i++)
-        {
-            if ((int)socketManager.initialData.bonusTrigger[i].rows == rowOpen)
-            {
-                index = i;
-            }
-        }
+        //for (int i = 0; i < socketManager.initialData.bonusTrigger.Count; i++)
+        //{
+        //    if ((int)socketManager.initialData.bonusTrigger[i].rows == rowOpen)
+        //    {
+        //        index = i;
+        //    }
+        //}
         
-        for (int i = Rowbannertext.Length - 1; i >= 0; i--)
-        {
-            if(socketManager.initialData.bonusTrigger[i+1].count[0]-ScatterCount > 0)
-            {
-                Rowbannertext[Rowbannertext.Length-i-1].text =(socketManager.initialData.bonusTrigger[i+1].count[0] - ScatterCount).ToString();
-            }
-            else
-            {
-                Rowbannertext[Rowbannertext.Length - i-1].text = "0";
-            }
-        }
+        //for (int i = Rowbannertext.Length - 1; i >= 0; i--)
+        //{
+        //    //if(socketManager.initialData.bonusTrigger[i+1].count[0]-ScatterCount > 0)
+        //    //{
+        //    //    Rowbannertext[Rowbannertext.Length-i-1].text =(socketManager.initialData.bonusTrigger[i+1].count[0] - ScatterCount).ToString();
+        //    //}
+        //    else
+        //    {
+        //        Rowbannertext[Rowbannertext.Length - i-1].text = "0";
+        //    }
+        //}
             for (int i = Rowbannertext.Length-1; i >= 0; i--)
             {
                
@@ -174,20 +172,7 @@ public class BonusController : MonoBehaviour
             if (8 - ScatterCount + 4 * (3 - i) <= 0)
             {
                 
-                //Rowbannertext[i].text = "0";
-                //RowbannerAnim[i].gameObject.SetActive(true);
-
-                //RowbannerAnim[i].StopAnimation();
-
-                //RowbannerAnim[i].StartAnimation();
-                //if (Rowbanner[i].gameObject.activeInHierarchy)
-                //{
-                //    if (audioManager) audioManager.PlayWLAudio("fireBlast");
-                //}
-                //yield return new WaitForSeconds(1f);
-                //audioManager.StopWLAaudio();
-                //Rowbanner[i].SetActive(false);
-                //RowbannerAnim[i].gameObject.SetActive(false);
+              
 
             }
             Transform obj = Rowbanner[i].transform.GetChild(1).GetChild(1);
@@ -236,11 +221,11 @@ public class BonusController : MonoBehaviour
         {
             obj.SetActive(true);
         }
-        for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
-        {
-            fireslot[socketManager.resultData.scatterValues[i].index[0]+4].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isSlotFixed(true, socketManager.resultData.scatterValues[i].value,slotBehaviour.Sun_Sprite);
-            StartCoroutine(fireslot[socketManager.resultData.scatterValues[i].index[0] + 4].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].ApplyFilter(false));
-        }
+        //for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
+        //{
+        //    fireslot[socketManager.resultData.scatterValues[i].index[0]+4].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isSlotFixed(true, socketManager.resultData.scatterValues[i].value,slotBehaviour.Sun_Sprite);
+        //    StartCoroutine(fireslot[socketManager.resultData.scatterValues[i].index[0] + 4].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].ApplyFilter(false));
+        //}
 
         SunBlastAnim.gameObject.SetActive(false);
         slotBehaviour.TotalWin_text.text = WinAmount.ToString();
@@ -249,20 +234,20 @@ public class BonusController : MonoBehaviour
 
     private int CheckNoOfRow()
     {
-        // int x= socketManager.resultData.bonus.matrix.Count;
+        
         int x = 0;
-        for (int i = 0; i < socketManager.initialData.bonusTrigger.Count; i++)
-        {
-            if (socketManager.resultData.scatterValues.Count >= socketManager.initialData.bonusTrigger[i].count[0] && socketManager.resultData.scatterValues.Count <= socketManager.initialData.bonusTrigger[i].count[1])
-            {
-                x = (int)socketManager.initialData.bonusTrigger[i].rows;
-                break;
-            }
-            else
-            {
-                x = 4;
-            }
-        }
+        //for (int i = 0; i < socketManager.initialData.bonusTrigger.Count; i++)
+        //{
+        //    if (socketManager.resultData.scatterValues.Count >= socketManager.initialData.bonusTrigger[i].count[0] && socketManager.resultData.scatterValues.Count <= socketManager.initialData.bonusTrigger[i].count[1])
+        //    {
+        //        x = (int)socketManager.initialData.bonusTrigger[i].rows;
+        //        break;
+        //    }
+        //    else
+        //    {
+        //        x = 4;
+        //    }
+        //}
         return x;
     }
     IEnumerator PlaySlideChangeTransitionAnimation(int SpinCount)
@@ -334,16 +319,16 @@ public class BonusController : MonoBehaviour
     }
     IEnumerator StopTweening()
     {
-        for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
-        {
+        //for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
+        //{
              
-            if (fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed == false)
-            {
-                //Debug.Log("Scatter :x   :" + socketManager.resultData.scatterValues[i].index[0] + "  y:" + socketManager.resultData.scatterValues[i].index[1] +"      "+ (socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()) + "   check no of row" +CheckNoOfRow());
-                fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isSlotFixed(false, socketManager.resultData.scatterValues[i].value, slotBehaviour.Sun_Sprite);
-                StartCoroutine(fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].ApplyFilter(false));
-            }
-        }
+        //    if (fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed == false)
+        //    {
+        //        //Debug.Log("Scatter :x   :" + socketManager.resultData.scatterValues[i].index[0] + "  y:" + socketManager.resultData.scatterValues[i].index[1] +"      "+ (socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()) + "   check no of row" +CheckNoOfRow());
+        //        fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isSlotFixed(false, socketManager.resultData.scatterValues[i].value, slotBehaviour.Sun_Sprite);
+        //        StartCoroutine(fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].ApplyFilter(false));
+        //    }
+        //}
 
 
         foreach (var res in fireslot)
@@ -359,14 +344,14 @@ public class BonusController : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
-        {
-            if (fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed == false)
-            {               
-                fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed = true;
+        //for (int i = 0; i < socketManager.resultData.scatterValues.Count; i++)
+        //{
+        //    if (fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed == false)
+        //    {               
+        //        fireslot[socketManager.resultData.scatterValues[i].index[0] + 8 - CheckNoOfRow()].ResultSlots[socketManager.resultData.scatterValues[i].index[1]].isFixed = true;
                 
-            }
-        }       
+        //    }
+        //}       
     }
     IEnumerator MovableSunAnim()
     {
@@ -408,7 +393,7 @@ public class BonusController : MonoBehaviour
                 }
             }
         }
-        if (slotBehaviour.Balance_text) slotBehaviour.Balance_text.text = socketManager.playerdata.Balance.ToString("F3");
+        if (slotBehaviour.Balance_text) slotBehaviour.Balance_text.text = socketManager.playerdata.balance.ToString("F3");
     }
 
     private void UpdateCurrentWin(double winAmount)

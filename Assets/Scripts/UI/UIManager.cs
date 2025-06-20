@@ -241,9 +241,7 @@ public class UIManager : MonoBehaviour
         if (Exit_Button) Exit_Button.onClick.RemoveAllListeners();
         if (Exit_Button) Exit_Button.onClick.AddListener(CloseMenu);
 
-        //if (About_Button) About_Button.onClick.RemoveAllListeners();
-        //if (About_Button) About_Button.onClick.AddListener(delegate { OpenPopup(AboutPopup_Object); });
-
+       
         if (AboutExit_Button) AboutExit_Button.onClick.RemoveAllListeners();
         if (AboutExit_Button) AboutExit_Button.onClick.AddListener(delegate { ClosePopup(AboutPopup_Object); });
 
@@ -584,18 +582,9 @@ public class UIManager : MonoBehaviour
         OpenPopup(ADPopup_Object); 
     }
 
-    internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText)
+    internal void InitialiseUIData(Paylines symbolsText)
     {
-        if (Support_Button) Support_Button.onClick.RemoveAllListeners();
-        if (Support_Button) Support_Button.onClick.AddListener(delegate { UrlButtons(SupportUrl); });
-
-        if (Terms_Button) Terms_Button.onClick.RemoveAllListeners();
-        if (Terms_Button) Terms_Button.onClick.AddListener(delegate { UrlButtons(TermsUrl); });
-
-        if (Privacy_Button) Privacy_Button.onClick.RemoveAllListeners();
-        if (Privacy_Button) Privacy_Button.onClick.AddListener(delegate { UrlButtons(PrivacyUrl); });
-
-        StartCoroutine(DownloadImage(AbtImgUrl));
+        
         PopulateSymbolsPayout(symbolsText);
     }
 
@@ -603,76 +592,64 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < SymbolsText.Length; i++)
         {
-            if(i ==0)
+            string text = null;
+            if (paylines.symbols[i].multiplier[0] != 0)
             {
-                string text = null;
-                if (paylines.symbols[0].Multiplier[0][0] != 0)
-                {
-                    text += "5x - " + paylines.symbols[0].Multiplier[0][0] + "x";
-                }
-                if (paylines.symbols[0].Multiplier[1][0] != 0)
-                {
-                    text += "\n4x - " + paylines.symbols[0].Multiplier[1][0] + "x";
-                }
-                if (paylines.symbols[0].Multiplier[2][0] != 0)
-                {
-                    text += "\n3x - " + paylines.symbols[0].Multiplier[2][0] + "x";
-                }
-                if (SymbolsText[i]) SymbolsText[i].text = text;
+                text += "5x - " + paylines.symbols[i].multiplier[0] + "x";
             }
-            if (i >= 4)
+            if (paylines.symbols[i].multiplier[1] != 0)
             {
-                string text = null;
-                if (paylines.symbols[0].Multiplier[0][0] != 0)
-                {
-                    text += "5x - " + paylines.symbols[0].Multiplier[0][0] + "x";
-                }
-                if (paylines.symbols[0].Multiplier[1][0] != 0)
-                {
-                    text += "\n4x - " + paylines.symbols[0].Multiplier[1][0] + "x";
-                }
-                if (paylines.symbols[0].Multiplier[2][0] != 0)
-                {
-                    text += "\n3x - " + paylines.symbols[0].Multiplier[2][0] + "x";
-                }
-                if (SymbolsText[i]) SymbolsText[i].text = text;
+                text += "\n4x - " + paylines.symbols[i].multiplier[1] + "x";
             }
-            else
+            if (paylines.symbols[i].multiplier[2] != 0)
             {
-                string text = null;
-                if (paylines.symbols[7].Multiplier[0][0] != 0)
-                {
-                    text += "5x - " + paylines.symbols[7].Multiplier[0][0] + "x";
-                }
-                if (paylines.symbols[7].Multiplier[1][0] != 0)
-                {
-                    text += "\n4x - " + paylines.symbols[7].Multiplier[1][0] + "x";
-                }
-                if (paylines.symbols[7].Multiplier[2][0] != 0)
-                {
-                    text += "\n3x - " + paylines.symbols[7].Multiplier[2][0] + "x";
-                }
-                if (SymbolsText[i]) SymbolsText[i].text = text;
+                text += "\n3x - " + paylines.symbols[i].multiplier[2] + "x";
             }
+            if (SymbolsText[i]) SymbolsText[i].text = text;
         }
 
-        FreeSpin_Text.text = "3 scattered                     on reels 2, 3, and 4 pays 2x the total bet and awards selection of one of the following: \n\n " +
-            $"{socketManager.initialData.freespinOptions[0].count} free games with {socketManager.initialData.freespinOptions[0].multiplier[0]}X, {socketManager.initialData.freespinOptions[0].multiplier[1]}X, or {socketManager.initialData.freespinOptions[0].multiplier[2]}X multiplier for all line wins with \n\n" +
-            $"{socketManager.initialData.freespinOptions[1].count} free games with {socketManager.initialData.freespinOptions[1].multiplier[0]}X, {socketManager.initialData.freespinOptions[1].multiplier[1]}X, or {socketManager.initialData.freespinOptions[1].multiplier[2]}X multiplier for all line wins with \n\n" +
-            $"{socketManager.initialData.freespinOptions[2].count} free games with {socketManager.initialData.freespinOptions[2].multiplier[0]}X, {socketManager.initialData.freespinOptions[2].multiplier[1]}X, or {socketManager.initialData.freespinOptions[2].multiplier[2]}X multiplier for all line wins with \n\n" +
-            $"{socketManager.initialData.freespinOptions[3].count} free games with {socketManager.initialData.freespinOptions[3].multiplier[0]}X, {socketManager.initialData.freespinOptions[3].multiplier[1]}X, or {socketManager.initialData.freespinOptions[3].multiplier[2]}X multiplier for all line wins with \n\n" +
-            $"{socketManager.initialData.freespinOptions[4].count} free games with {socketManager.initialData.freespinOptions[4].multiplier[0]}X, {socketManager.initialData.freespinOptions[4].multiplier[1]}X, or {socketManager.initialData.freespinOptions[4].multiplier[2]}X multiplier for all line wins with \n\n" +
-            "Mystery choice of any of the above number of free games with any of the above sets of multipliers \n\n" +
-            $"to free games with {socketManager.initialData.freespinOptions[0].multiplier[0]}X, {socketManager.initialData.freespinOptions[0].multiplier[1]}X, {socketManager.initialData.freespinOptions[0].multiplier[2]}X, {socketManager.initialData.freespinOptions[3].multiplier[0]}X, {socketManager.initialData.freespinOptions[3].multiplier[1]}X, {socketManager.initialData.freespinOptions[3].multiplier[2]}X, or {socketManager.initialData.freespinOptions[4].multiplier[2]}X multiplier for all line wins with \n\n" +
-            "One or more in a winning combination multiplies the pay for that winning combination by a random wild multiplier from the ranges corresponding to the free games scenario selected.An alternate set of reels is used during the Free Games Bonus.Winning combinations for these reels are identical to the base game except 3 scattered               awards 2x the total bet and additional free games equal to the number of free games initially awarded.The multiplier set remains the same.The Free Games Bonus ends when no free games remain.\n\n\n" +
-            "and the Fire Link Feature are not available during free games";
+        for (int i = 0; i < paylines.symbols.Count; i++)
+        {
+            if (paylines.symbols[i].name.ToUpper() == "FREESPIN")
+            {
+                if (FreeSpin_Text) FreeSpin_Text.text = paylines.symbols[i].description.ToString();
+            }
+            if (paylines.symbols[i].name.ToUpper() == "SCATTER")
+            {
+               // if (Scatter_Text) Scatter_Text.text = paylines.symbols[i].description.ToString();
+            }
+            if (paylines.symbols[i].name.ToUpper() == "JACKPOT")
+            {
+                if (Jackpot_Text) Jackpot_Text.text = paylines.symbols[i].description.ToString();
+            }
+            if (paylines.symbols[i].name.ToUpper() == "BONUS")
+            {
+                if (Bonus_Text) Bonus_Text.text = paylines.symbols[i].description.ToString();
+            }
+            if (paylines.symbols[i].name.ToUpper() == "WILD")
+            {
+                if (Wild_Text) Wild_Text.text = paylines.symbols[i].description.ToString();
+            }
+        }
+    
 
-        FireLink_Text.text = $"{socketManager.initialData.bonusTrigger[0].count[0]} or more scattered         triggers the Fire Link Feature. The feature starts with 4 unlock rows when triggered with 4 to 7             symbols, or {socketManager.initialData.bonusTrigger[1].rows} unlocked rows when triggered with {socketManager.initialData.bonusTrigger[1].count[0]} to {socketManager.initialData.bonusTrigger[1].count[1]} All unlocked rows when triggered with symbols. 3 spins are awarded.            symbols lock in place for the duration of the feature and remaining symbol positions spin independently.\n\n" +
-            "If a new appears, the symbol locks in place for the duration of the feature.The number of spins remaining resets to 3 with each newly locked that appears on an unlocked row.Collecting the indicated number of additional in unlocked rows unlocks that additional row.A maximum of 8 rows is available.\n\n" +   
-            "symbols award credit values " +
-            "Credit values range from 50 to 5000 times the bet per line.Credit values displayed on the        symbols have already been multiplied by the bet per line.Only       symbols contribute to wins.The chance of winning a jackpot increases with higher bets.Jackpots will be paid as displayed at the end of the feature.When no spins remain or when all 40 positions are locked, the award displayed on each in an unlocked row is awarded and the feature ends.An alternate set of reels is used during the Fire Link Feature.\n\n" +
-            "is not available during the Fire Link Feature.appears only on two reels per feature.";
-    }
+    //FreeSpin_Text.text = "3 scattered                     on reels 2, 3, and 4 pays 2x the total bet and awards selection of one of the following: \n\n " +
+    //    $"{socketManager.initialData.freespinOptions[0].count} free games with {socketManager.initialData.freespinOptions[0].multiplier[0]}X, {socketManager.initialData.freespinOptions[0].multiplier[1]}X, or {socketManager.initialData.freespinOptions[0].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    $"{socketManager.initialData.freespinOptions[1].count} free games with {socketManager.initialData.freespinOptions[1].multiplier[0]}X, {socketManager.initialData.freespinOptions[1].multiplier[1]}X, or {socketManager.initialData.freespinOptions[1].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    $"{socketManager.initialData.freespinOptions[2].count} free games with {socketManager.initialData.freespinOptions[2].multiplier[0]}X, {socketManager.initialData.freespinOptions[2].multiplier[1]}X, or {socketManager.initialData.freespinOptions[2].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    $"{socketManager.initialData.freespinOptions[3].count} free games with {socketManager.initialData.freespinOptions[3].multiplier[0]}X, {socketManager.initialData.freespinOptions[3].multiplier[1]}X, or {socketManager.initialData.freespinOptions[3].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    $"{socketManager.initialData.freespinOptions[4].count} free games with {socketManager.initialData.freespinOptions[4].multiplier[0]}X, {socketManager.initialData.freespinOptions[4].multiplier[1]}X, or {socketManager.initialData.freespinOptions[4].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    "Mystery choice of any of the above number of free games with any of the above sets of multipliers \n\n" +
+    //    $"to free games with {socketManager.initialData.freespinOptions[0].multiplier[0]}X, {socketManager.initialData.freespinOptions[0].multiplier[1]}X, {socketManager.initialData.freespinOptions[0].multiplier[2]}X, {socketManager.initialData.freespinOptions[3].multiplier[0]}X, {socketManager.initialData.freespinOptions[3].multiplier[1]}X, {socketManager.initialData.freespinOptions[3].multiplier[2]}X, or {socketManager.initialData.freespinOptions[4].multiplier[2]}X multiplier for all line wins with \n\n" +
+    //    "One or more in a winning combination multiplies the pay for that winning combination by a random wild multiplier from the ranges corresponding to the free games scenario selected.An alternate set of reels is used during the Free Games Bonus.Winning combinations for these reels are identical to the base game except 3 scattered               awards 2x the total bet and additional free games equal to the number of free games initially awarded.The multiplier set remains the same.The Free Games Bonus ends when no free games remain.\n\n\n" +
+    //    "and the Fire Link Feature are not available during free games";
+
+    //FireLink_Text.text = $"{socketManager.initialData.bonusTrigger[0].count[0]} or more scattered         triggers the Fire Link Feature. The feature starts with 4 unlock rows when triggered with 4 to 7             symbols, or {socketManager.initialData.bonusTrigger[1].rows} unlocked rows when triggered with {socketManager.initialData.bonusTrigger[1].count[0]} to {socketManager.initialData.bonusTrigger[1].count[1]} All unlocked rows when triggered with symbols. 3 spins are awarded.            symbols lock in place for the duration of the feature and remaining symbol positions spin independently.\n\n" +
+    //    "If a new appears, the symbol locks in place for the duration of the feature.The number of spins remaining resets to 3 with each newly locked that appears on an unlocked row.Collecting the indicated number of additional in unlocked rows unlocks that additional row.A maximum of 8 rows is available.\n\n" +   
+    //    "symbols award credit values " +
+    //    "Credit values range from 50 to 5000 times the bet per line.Credit values displayed on the        symbols have already been multiplied by the bet per line.Only       symbols contribute to wins.The chance of winning a jackpot increases with higher bets.Jackpots will be paid as displayed at the end of the feature.When no spins remain or when all 40 positions are locked, the award displayed on each in an unlocked row is awarded and the feature ends.An alternate set of reels is used during the Fire Link Feature.\n\n" +
+    //    "is not available during the Fire Link Feature.appears only on two reels per feature.";
+}
 
     private void CallOnExitFunction()
     {
@@ -686,14 +663,11 @@ public class UIManager : MonoBehaviour
         audioController.PlayButtonAudio();
         if (Menu_Object) Menu_Object.SetActive(false);
         if (Exit_Object) Exit_Object.SetActive(true);
-        //if (About_Object) About_Object.SetActive(true);
+       
         if (Paytable_Object) Paytable_Object.SetActive(true);
         if (Settings_Object) Settings_Object.SetActive(true);
 
-        //DOTween.To(() => About_RT.anchoredPosition, (val) => About_RT.anchoredPosition = val, new Vector2(About_RT.anchoredPosition.x, About_RT.anchoredPosition.y + 150), 0.1f).OnUpdate(() =>
-        //{
-        //    LayoutRebuilder.ForceRebuildLayoutImmediate(About_RT);
-        //});
+       
 
         DOTween.To(() => Paytable_RT.anchoredPosition, (val) => Paytable_RT.anchoredPosition = val, new Vector2(Paytable_RT.anchoredPosition.x, Paytable_RT.anchoredPosition.y + 125), 0.1f).OnUpdate(() =>
         {
@@ -710,10 +684,7 @@ public class UIManager : MonoBehaviour
     {
 
         if (audioController) audioController.PlayButtonAudio();
-        //DOTween.To(() => About_RT.anchoredPosition, (val) => About_RT.anchoredPosition = val, new Vector2(About_RT.anchoredPosition.x, About_RT.anchoredPosition.y - 150), 0.1f).OnUpdate(() =>
-        //{
-        //    LayoutRebuilder.ForceRebuildLayoutImmediate(About_RT);
-        //});
+       
 
         DOTween.To(() => Paytable_RT.anchoredPosition, (val) => Paytable_RT.anchoredPosition = val, new Vector2(Paytable_RT.anchoredPosition.x, Paytable_RT.anchoredPosition.y - 125), 0.1f).OnUpdate(() =>
         {
@@ -737,14 +708,14 @@ public class UIManager : MonoBehaviour
 
     internal void OpenPopup(GameObject Popup)
     {
-        //if (audioController) audioController.PlayButtonAudio();
+       
         if (Popup) Popup.SetActive(true);
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
     }
 
     internal void ClosePopup(GameObject Popup)
     {
-      //  if (audioController) audioController.PlayButtonAudio();
+      
         if (Popup) Popup.SetActive(false);
         if (!DisconnectPopup_Object.activeSelf) 
         {

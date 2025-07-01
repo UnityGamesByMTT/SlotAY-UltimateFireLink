@@ -463,7 +463,7 @@ public class SlotBehaviour : MonoBehaviour
         if (TotalBet_text) TotalBet_text.text = (SocketManager.initialData.bets[BetCounter] * Lines).ToString();
         for (int i = 0; i < MiniMajorMinor.Length; i++)
         {
-            MiniMajorMinor[i].text = ((SocketManager.initialData.bets[BetCounter] * Lines) * SocketManager.initialData.jackpotMultipliers[i]).ToString();
+            MiniMajorMinor[i].text = ((SocketManager.initialData.bets[BetCounter] * Lines) * SocketManager.initialData.f.[i]).ToString();
         }
         currentTotalBet = SocketManager.initialData.bets[BetCounter] * Lines;
         //CompareBalance();

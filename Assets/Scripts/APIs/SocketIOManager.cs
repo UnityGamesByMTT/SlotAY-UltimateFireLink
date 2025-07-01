@@ -43,7 +43,7 @@ public class SocketIOManager : MonoBehaviour
 
     protected string SocketURI = null;
     // protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
-    protected string TestSocketURI = "https://frnp4zmn-5000.inc1.devtunnels.ms/";
+    protected string TestSocketURI = "https://mx2md3l5-5000.inc1.devtunnels.ms/";
     // protected string TestSocketURI = "https://fuzzy-space-happiness-6jv566jpv6jhrw5v-5000.app.github.dev/";
     // protected string TestSocketURI = "https://6m8kh503-5000.inc1.devtunnels.ms/";
 
@@ -609,6 +609,10 @@ public class Features
 {
     public FreeSpin freeSpin { get; set; }
     public Scatter scatter { get; set; }
+
+    public List<FreespinOption> freespinOptions { get; set; }
+    public List<int> jackpotMultipliers { get; set; }
+    public List<BonusTrigger> bonusTrigger { get; set; }
 }
 [Serializable]
 public class UiData
